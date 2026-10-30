@@ -1,0 +1,16 @@
+
+#!name=ducbinh | Locket
+#!desc=Personal Locket Module | Managed by ducbinh
+# Maintainer: dangnguyenducbinh
+# Original scripts: DungHoang120401/Nobita
+
+[Header Rewrite]
+^https?://api.revenuecat.com/.+/(receipts$|subscribers/?(.*?)*$) header-del x-revenuecat-etag
+^https?://api.revenuecat.com/.+/(receipts$|subscribers/?(.*?)*$) header-del X-RevenueCat-ETag
+
+[Script]
+revenuecat = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$), script-path=https://raw.githubusercontent.com/dangnguyenducbinh/ducbinh/main/Scripts/Locket_Gold.js, requires-body=true, max-size=-1, timeout=60
+deleteHeader = type=http-request, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers), script-path=https://raw.githubusercontent.com/dangnguyenducbinh/ducbinh/main/Scripts/LKG_delete_header.js, timeout=60
+
+[MITM]
+hostname = %APPEND% api.revenuecat.com
